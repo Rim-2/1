@@ -1,10 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { Board, BoardStatus } from './board.model'; 
+import { v1 as uuid } from 'uuid';
 
 @Injectable()
 export class BoardsService {
-    private boards = ["1"];
+    private boards: Board[] = [];
 
-    getAllBoards() {
-        return "ds";
+    getAllBoards(): Board[] {
+        return this.boards;
+    }
+
+    createBoard(title: string, description: string) {
+        const board: Board = {
+            id: uuid(),
+            title: title,
+            description: description, // = 한 번만 써도 됨
+            status: BoardStatus.PUBLIC
+        }
+
+        this.boards.push(board)
+        return board;
     }
 }
